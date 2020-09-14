@@ -1,5 +1,6 @@
 (ns reagent-table.core
     (:require [reagent.core :as r]
+              [reagent.dom :as rd]
               [goog.events :as events])
     (:import [goog.events EventType]))
 
@@ -76,7 +77,7 @@
 
 (defn- init-scrolling
   [scroller]
-  (let [container (r/dom-node scroller)]
+  (let [container (rd/dom-node scroller)]
     ;    (events/listen container EventType.SCROLL table-scroll) ;leave behind in case switch to goog events
     ;    ;(events/listen container EventType.WHEEL table-scroll)
     (.addEventListener container "scroll" table-scroll false)
@@ -145,7 +146,7 @@
                   ;:background-color "black" ;; for debug
                   }
           :on-click #(.stopPropagation %)
-          :on-mouse-down #(let [cell-node (r/dom-node cell-container)
+          :on-mouse-down #(let [cell-node (rd/dom-node cell-container)
                                 init-x (.-clientX %)
                                 init-width (.-clientWidth cell-node)]
                             (dragging
